@@ -1,9 +1,10 @@
 class PatientsController < ApplicationController
   before_action :set_patient, only: [:show]
+  before_action :authenticate_user!
   respond_to :html, :json
 
   def index
-    respond_with @patients = Patient.all
+    respond_with @patients = current_user.patients
   end
 
   def show
@@ -14,9 +15,12 @@ class PatientsController < ApplicationController
     @patient = Patient.new
   end
 
+  #Finding or creating patients
   def create
-    @patient = Patient.new(patient_params)
+    @patient = Patient.find_by(patient_params)
+    @patient ||= Patient.new(patient_params)
     if @patient.save
+      @patient.patient_caretakers.find_or_create_by(user_id: current_user.id, role: current_user.title)
       redirect_to(@patient)
     else
       render :new

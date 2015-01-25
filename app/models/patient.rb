@@ -2,6 +2,8 @@ class Patient < ActiveRecord::Base
   validates :first_name, :last_name, :dob, presence: true
   has_many :patient_vital_signs
   has_many :vital_signs, through: :patient_vital_signs
+  has_many :patient_caretakers
+  has_many :users, through: :patient_caretakers, as: :caretakers
 
   def name_last_first
     "#{self.last_name}, #{self.first_name}"

@@ -1,46 +1,68 @@
 <%= render 'shared/content_title', title: "#{@patient.name_first_last}" %>
 
-<div class="well">
-  <dl class="dl-horizontal">
-    <dt>Last name: </dt>
-    <dd><%= @patient.last_name %></dd>
-  </dl>
-  <dl class="dl-horizontal">
-    <dt>First name: </dt>
-    <dd><%= @patient.first_name %></dd>
-  </dl>
-</div>
-<h5>Add vital sign value</h5>
-<% @patient_vital_sign ||= @patient.patient_vital_signs.new %>
-<%= form_for [@patient, @patient_vital_sign] do |f| %>
-  <%= render 'shared/errors', obj: @patient_vital_sign %>
-  <div class="control-group">
-    <%= f.label :vital_sign, "Vital sign" %>
-    <%= f.collection_select(:vital_sign_id, VitalSign.all, :id, :name) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :value, "Value" %>
-    <%= f.text_field :value %>
-  </div>
-  <%= f.submit "Add", class: "btn btn-primary"%>
-<% end %>
 
-<h5><%= @patient.name_first_last %>'s Vital Signs </h5>
+<div class = "row">
+  <div class = "col-xs-12 col-md-8">
+    <dl class="dl-horizontal">
+      <dt>DOB: </dt>
+      <dd><%= @patient.dob %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>Recent vitals: </dt>
+      <dd><%= @patient.vitals_at_a_glance %></dd>
+    </dl>
+  </div>
+  <div class = "col-xs-6 col-md-4">
+    <h4>Caretakers</h4>
+    <ul>
+      <% @patient.patient_caretakers.each do |patient_caretaker| %>
+      <li><strong><%= patient_caretaker.user.name %></strong>, <i><%= patient_caretaker.role %></i></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<br/>
+<h2>Track vital signs</h2>
+  <hr/>
+  <% @patient_vital_sign ||= @patient.patient_vital_signs.new %>
+  <%= form_for [@patient, @patient_vital_sign], html: {class: "form-inline"} do |f| %>
+    <%= render 'shared/errors', obj: @patient_vital_sign %>
+    <div class="form-group">
+      <%= f.label :vital_sign, "Vital sign" %>
+      <%= f.collection_select(:vital_sign_id, VitalSign.all, :id, :name) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :value, "Value" %>
+      <%= f.text_field :value %>
+    </div>
+    <%= f.submit "Add", class: "btn btn-primary"%>
+  <% end %>
+
+<br/>
+<h2>Chart </h2>
+<hr/>
 <% @patient.vital_signs.distinct.each do |vital_sign| %>
   <%= vital_sign.name %>
   <% patient_vital_signs = vital_sign.by_patient(@patient.id) %>
-  <div class="table-responsive">
-    <table id="mytable" class="table table-bordred table-striped">
-      <thead>
-        <th>Date</th>
-        <th>Value</th>
-        <th>Edit</th>
-      </thead>
-      <tbody>
-      <%= render patient_vital_signs %>  
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col-xs-12 col-md-8">
+      <% vital_signs = vital_sign.by_patient(@patient.id).map {|s| [s.updated_at, s.value]} %>
+      <%= line_chart vital_signs %>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="table-responsive">
+        <table id="mytable" class="table table-bordred table-striped">
+          <thead>
+            <th>Date</th>
+            <th>Value</th>
+            <th>Edit</th>
+          </thead>
+          <tbody>
+          <%= render patient_vital_signs %>  
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <% vital_signs = vital_sign.by_patient(@patient.id).map {|s| [s.updated_at, s.value]} %>
-  <%= line_chart vital_signs %>
 <% end %>
+</div>
