@@ -1,13 +1,15 @@
 class PatientsController < ApplicationController
-  before_action :set_patient, only: [:show]
-  before_action :authenticate_user!
+  before_action :set_patient, only: [:show, :edit]
+  before_filter :authenticate_user!
   respond_to :html, :json
 
   def index
-    respond_with @patients = current_user.patients
+    @patients = PatientPolicy::Scope.new(current_user, Patient).resolve
+    respond_with @patients
   end
 
   def show
+    authorize @patient
     respond_with @patient
   end
 
@@ -28,9 +30,11 @@ class PatientsController < ApplicationController
   end
 
   def edit
+    authorize @patient
   end
 
   def update
+    authorize @patient
     if @patient.update(patient_params)
       redirect_to(@patient)
     else

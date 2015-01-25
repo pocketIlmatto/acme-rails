@@ -3,7 +3,7 @@ class Patient < ActiveRecord::Base
   has_many :patient_vital_signs
   has_many :vital_signs, through: :patient_vital_signs
   has_many :patient_caretakers
-  has_many :users, through: :patient_caretakers, as: :caretakers
+  has_many :users, through: :patient_caretakers
 
   def name_last_first
     "#{self.last_name}, #{self.first_name}"
