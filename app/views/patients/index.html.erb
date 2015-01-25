@@ -1,0 +1,23 @@
+
+<%= render 'shared/content_title', title: "Patient list".html_safe  %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table id="mytable" class="table table-bordred table-striped">
+          <thead>
+            <th>Patient Name</th>
+            <th>DOB</th>
+            <th>Recent vitals</th>
+            <th>Add vitals</th>
+            <th>View vitals</th>
+          </thead>
+          <tbody>
+          <%= render @patients %>  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

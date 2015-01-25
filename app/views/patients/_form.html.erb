@@ -1,0 +1,20 @@
+<%= render 'shared/errors', obj: @patient %>
+
+<div class="well">
+  <%= form_for(@patient) do |f| %>
+    <div class="control-group">
+       <%= f.label    :first_name %>
+       <%= f.text_field   :first_name %>
+    </div>
+    <div class="control-group">
+       <%= f.label    :last_name %>
+       <%= f.text_field   :last_name %>
+    </div>
+    <div class="control-group">
+       <%= f.label    :dob %>
+       <%= f.date_field :dob %>
+    </div>
+    <br/>
+    <%= f.submit(@patient.new_record? ? 'New Patient' : 'Update Patient', class: "btn btn-primary") %>
+  <% end %>
+</div>
