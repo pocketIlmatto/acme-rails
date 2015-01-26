@@ -60,11 +60,12 @@ namespace :db do
   desc "Associate patient caretakers"
   task associate_patient_caretakers: :environment do
     Patient.all.each do |patient|
-      rand(5).times do
+      num_caretakers = rand(4)+1
+      num_caretakers.times do
         offset = rand(UserOrganization.where(role: nil).count)
         caretaker_id = UserOrganization.where(role: nil).offset(offset).first.user_id
 
-        patient.patient_caretakers.create(user_id: caretaker_id, role: User.find(caretaker_id).title) unless caretaker_id.nil?
+        patient.patient_caretakers.find_or_create(user_id: caretaker_id, role: User.find(caretaker_id).title) unless caretaker_id.nil?
       end
     end
   end
@@ -73,25 +74,28 @@ namespace :db do
   task create_patient_vital_signs: :environment do 
     10.times do  
       Patient.all.each do |patient|
-        offset = rand(PatientCaretaker.where(patient_id: patient.id).count)+1
-        caretaker_id = PatientCaretaker.where(patient_id: patient.id).offset(offset).first.user_id
+        count_caretakers = PatientCaretaker.where(patient_id: patient.id).count
+        if count_caretakers > 0
+          offset = rand(count_caretakers)
+          caretaker_id = PatientCaretaker.where(patient_id: patient.id).offset(offset).first.user_id
 
-        patient.patient_vital_signs.create(vital_sign_id: VitalSign.find_by(name: "BP").id, 
-          value: "120/70", 
-          measured_at: Faker::Date.between(10.days.ago, 1.hour.ago),
-          user_id: caretaker_id)
-        patient.patient_vital_signs.create(vital_sign_id: VitalSign.find_by(name: "HR").id, 
-          value: rand(50..110).to_s, 
-          measured_at: Faker::Date.between(10.days.ago, 1.hour.ago),
-          user_id: caretaker_id)
-        patient.patient_vital_signs.create(vital_sign_id: VitalSign.find_by(name: "Weight").id, 
-          value: rand(80..250).to_s, 
-          measured_at: Faker::Date.between(10.days.ago, 1.hour.ago),
-          user_id: caretaker_id)
-        patient.patient_vital_signs.create(vital_sign_id: VitalSign.find_by(name: "Temp").id, 
-          value: rand(97..105).to_s, 
-          measured_at: Faker::Date.between(10.days.ago, 1.hour.ago),
-          user_id: caretaker_id)
+          patient.patient_vital_signs.create(vital_sign_id: VitalSign.find_by(name: "BP").id, 
+            value: "120/70", 
+            measured_at: Faker::Date.between(10.days.ago, 1.hour.ago),
+            user_id: caretaker_id)
+          patient.patient_vital_signs.create(vital_sign_id: VitalSign.find_by(name: "HR").id, 
+            value: rand(50..110).to_s, 
+            measured_at: Faker::Date.between(10.days.ago, 1.hour.ago),
+            user_id: caretaker_id)
+          patient.patient_vital_signs.create(vital_sign_id: VitalSign.find_by(name: "Weight").id, 
+            value: rand(80..250).to_s, 
+            measured_at: Faker::Date.between(10.days.ago, 1.hour.ago),
+            user_id: caretaker_id)
+          patient.patient_vital_signs.create(vital_sign_id: VitalSign.find_by(name: "Temp").id, 
+            value: rand(97..105).to_s, 
+            measured_at: Faker::Date.between(10.days.ago, 1.hour.ago),
+            user_id: caretaker_id)
+        end
       end
     end
   end
