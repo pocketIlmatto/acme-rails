@@ -1,0 +1,12 @@
+<tr>
+<td><%= user_organization.user.name %></td>
+<td><%= user_organization.user.email %></td>
+<td><%= "#{time_ago_in_words(user_organization.user.last_sign_in_at)} ago" unless user_organization.user.last_sign_in_at.nil?  %></td>
+<td><%= user_organization.role %></td>
+<td>
+<button class="btn btn-danger btn-xs" data-title="Delete"  ><span class="glyphicon glyphicon-pencil"></span></button>
+</td>
+<td>
+<button class="btn btn-danger btn-xs" data-title="Delete"  ><span class="glyphicon glyphicon-remove"></span></button>
+</td>
+</tr>

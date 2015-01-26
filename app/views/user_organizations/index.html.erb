@@ -1,0 +1,27 @@
+<%= render 'shared/content_title', title: "Authorized users".html_safe  %>
+
+<div class="container">
+  <% @organizations.each do |organization_id| %>
+    <div class="row">
+      <div class="col-md-12">
+
+        <h3><%= Organization.find(organization_id).name %></h3>
+        <div class="table-responsive">
+          <table id="mytable" class="table table-bordred table-striped">
+            <thead>
+              <th>User name</th>
+              <th>Email</th>
+              <th>Last sign-in</th>
+              <th>Role</th>
+              <th>Edit</th>
+              <th>Remove association</th>
+            </thead>
+            <tbody>
+            <%= render @user_organizations.where(organization_id: organization_id) %>  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

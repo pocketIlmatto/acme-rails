@@ -16,12 +16,14 @@ gem 'jbuilder', '~> 2.0'
 gem 'autoprefixer-rails'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'faker'
+gem 'faker-medical'
 gem 'puma'
 gem 'kaminari'
 gem 'devise'
 gem 'chartkick'
 gem 'pundit'
 gem 'font-awesome-sass', '~> 4.2.0'
+gem 'attr_encrypted'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc

@@ -19,10 +19,11 @@ class PatientsController < ApplicationController
 
   #Finding or creating patients
   def create
-    @patient = Patient.find_by(patient_params)
+    @patient = Patient.find_existing(patient_params)
     @patient ||= Patient.new(patient_params)
     if @patient.save
-      @patient.patient_caretakers.find_or_create_by(user_id: current_user.id, role: current_user.title)
+      @patient.patient_caretakers.find_or_create_by(user_id: current_user.id, 
+        role: current_user.title)
       redirect_to(@patient)
     else
       render :new
