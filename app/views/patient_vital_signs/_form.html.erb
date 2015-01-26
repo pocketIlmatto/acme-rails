@@ -1,0 +1,16 @@
+<%= form_for [@patient, @patient_vital_sign], html: {class: "form-inline"} do |f| %>
+  <%= render 'shared/errors', obj: @patient_vital_sign %>
+  <div class="form-group">
+    <%= f.label :vital_sign, "Vital sign:" %>
+    <%= f.collection_select(:vital_sign_id, VitalSign.all, :id, :name) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :value, "Value:" %>
+    <%= f.text_field :value %>
+  </div>
+  <div class="form-group">
+    <%= f.label :measured_at, "Measured on:" %>
+    <%= f.datetime_select :measured_at, default: 1.minute.ago %>
+  </div>
+  <%= f.submit "Add", class: "btn btn-primary"%>
+<% end %>

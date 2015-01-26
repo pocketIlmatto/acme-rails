@@ -1,7 +1,5 @@
 <tr>
-<td><%= patient_vital_sign.updated_at  %></td>
+<td><%= time_ago_in_words(patient_vital_sign.measured_at) %> ago</td>
 <td><%= patient_vital_sign.value %></td>
-<td>
-<button class="btn btn-danger btn-xs" data-title="Edit"  ><span class="glyphicon glyphicon-pencil"></span></button>
-</td>
+<td><%= patient_vital_sign.user.name %></td>
 </tr>

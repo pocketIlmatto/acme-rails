@@ -27,7 +27,7 @@ class PatientPolicy
 
   private
   def is_patient_caretaker?
-    @current_user.patients.exists?(@patient)
+    @current_user.patients.exists?(@patient.id)
   end
 
 end

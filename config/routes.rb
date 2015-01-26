@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     resources :patient_vital_signs, only: [:create]
   end
 
+  resources :patient_vital_signs, only: [:update]
+
   get "patient/new_vital_sign" => 'patient#new_vital_sign', :as => :new_vital_sign
 end

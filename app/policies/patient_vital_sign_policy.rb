@@ -25,7 +25,7 @@ class PatientVitalSignPolicy
 
   private
   def is_patient_caretaker?
-    @current_user.patients.exists?(@patient_vital_sign.patient)
+    @current_user.patients.exists?(@patient_vital_sign.patient_id)
   end
 
 end

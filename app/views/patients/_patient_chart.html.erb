@@ -1,0 +1,24 @@
+<% @patient.vital_signs.order(name: :asc).distinct.each do |vital_sign| %>
+  <%= vital_sign.name %>
+  <% patient_vital_signs = vital_sign.by_patient(@patient.id).measured_since(5.days.ago).order(measured_at: :desc) %>
+  <div class="row">
+    <div class="col-xs-12 col-md-8">
+      <% vital_signs_data = patient_vital_signs.map {|s| [s.updated_at, s.value]} %>
+      <%= line_chart vital_signs_data %>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="table-responsive">
+        <table id="mytable" class="table table-bordred table-striped">
+          <thead>
+            <th>Date</th>
+            <th>Value</th>
+            <th>Recorder</th>
+          </thead>
+          <tbody>
+          <%= render patient_vital_signs %>  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

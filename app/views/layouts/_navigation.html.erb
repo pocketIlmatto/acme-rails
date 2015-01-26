@@ -7,15 +7,22 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <% if user_signed_in? %>
-      <%= link_to 'Patients list', patients_path, class: 'navbar-brand' %>
-      <%= link_to 'New patient', new_patient_path, class: 'navbar-brand' %>
-      <% end %>
+      
     </div>
     <div class="collapse navbar-collapse">
+      
       <ul class="nav navbar-nav">
+        <% if user_signed_in? %>
+        <li><%= link_to 'Patients list', patients_path, class: 'navbar-brand' %></li>
+        <li><%= link_to 'New patient', new_patient_path, class: 'navbar-brand' %></li>
+        <% end %>
+      
         <%= render 'layouts/navigation_links' %>
       </ul>
+      <% if user_signed_in? %>
+      <p class="nav navbar-nav navbar-right">
+        Signed in as <a href="#" class="navbar-link"><%= current_user.name %></a></p>
+      <% end %>
     </div>
   </div>
 </nav>
