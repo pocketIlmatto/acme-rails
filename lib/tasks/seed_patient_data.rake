@@ -73,7 +73,7 @@ namespace :db do
   task create_patient_vital_signs: :environment do 
     10.times do  
       Patient.all.each do |patient|
-        offset = rand(PatientCaretaker.where(patient_id: patient.id).count)
+        offset = rand(PatientCaretaker.where(patient_id: patient.id).count)+1
         caretaker_id = PatientCaretaker.where(patient_id: patient.id).offset(offset).first.user_id
 
         patient.patient_vital_signs.create(vital_sign_id: VitalSign.find_by(name: "BP").id, 
