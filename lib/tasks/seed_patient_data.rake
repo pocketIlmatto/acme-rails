@@ -65,7 +65,7 @@ namespace :db do
         offset = rand(UserOrganization.where(role: nil).count)
         caretaker_id = UserOrganization.where(role: nil).offset(offset).first.user_id
 
-        patient.patient_caretakers.find_or_create(user_id: caretaker_id, role: User.find(caretaker_id).title) unless caretaker_id.nil?
+        patient.patient_caretakers.find_or_create_by(user_id: caretaker_id, role: User.find(caretaker_id).title) unless caretaker_id.nil?
       end
     end
   end
