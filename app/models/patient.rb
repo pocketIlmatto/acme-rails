@@ -22,15 +22,7 @@ class Patient < ActiveRecord::Base
   end
 
   def self.find_existing(pph)
-    #patient_params_hash[:encrypted_first_name] = patient_params_hash.delete(:first_name)
-    #patient_params_hash[:encrypted_last_name] = patient_params_hash.delete(:last_name)
-    #patient_params_hash[:encrypted_dob] = patient_params_hash.delete(:dob)
-    # patient = Patient.
-    #   find_by_encrypted_first_name_and_encrypted_last_name_and_encrypted_dob \
-    #     (Patient.encrypt(pph[:first_name]), 
-    #      Patient.encrypt(pph[:last_name]), 
-    #      Patient.encrypt(DateTime.parse(pph[:dob])))
-    # #patient = patient.find_by_first_name_and_last_name
+    Patient.find_by_first_name_and_last_name_and_dob(pph[:first_name], pph[:last_name], DateTime.parse(pph[:dob]))
   end
 
 end
