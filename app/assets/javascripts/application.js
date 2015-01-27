@@ -17,6 +17,7 @@
 //= require turbolinks
 //= require_tree .
 //turn to inline mode
+//TODO manage a user's session to redirect to patient list after some time of inactivity
 // reset main timer i,e idle time to 0 on mouse move, keypress or reload
 window.onload = reset_main_timer;
 document.onmousemove = reset_main_timer;
