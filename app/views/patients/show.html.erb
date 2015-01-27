@@ -25,8 +25,8 @@
 
 <h2>Track vital signs</h2>
 <hr/>
-<% @patient_vital_sign ||= @patient.patient_vital_signs.new %>
-<%= render 'patient_vital_signs/form' %>
+<% @patient_vital_sign_group ||= PatientVitalSignGroup.new(patient_id: @patient.id) %>
+<%= render 'patient_vital_sign_groups/form' %>
 <br/>
 
 
