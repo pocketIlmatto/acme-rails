@@ -1,0 +1,3 @@
+class PatientTempPolicy < PatientVitalSignPolicy
+
+end

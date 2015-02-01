@@ -1,0 +1,3 @@
+class PatientBloodPressurePolicy < PatientVitalSignPolicy
+
+end

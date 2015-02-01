@@ -15,30 +15,34 @@ class PatientVitalSignGroupsController < ApplicationController
       patient_vital_signs = []
       #BP
       patient_vital_signs << @patient.patient_vital_signs
-        .build( vital_sign_id: VitalSign.find_by_name("BP").id,
+        .build( vital_sign_id: VitalSign.find_by_name("PatientBloodPressure").id,
                 value: pvs_params[:bp], 
                 measured_at: measured_at,
-                user_id: current_user.id) unless pvs_params[:bp].empty?
+                user_id: current_user.id,
+                type: "PatientBloodPressure") unless pvs_params[:bp].empty?
       #HR
       patient_vital_signs << @patient.patient_vital_signs
-        .build( vital_sign_id: VitalSign.find_by_name("HR").id,
+        .build( vital_sign_id: VitalSign.find_by_name("PatientHeartRate").id,
                 value: pvs_params[:hr], 
                 measured_at: measured_at,
-                user_id: current_user.id) unless pvs_params[:hr].empty?
+                user_id: current_user.id,
+                type: "PatientHeartRate") unless pvs_params[:hr].empty?
       
       #Weight
       patient_vital_signs << @patient.patient_vital_signs
-        .build( vital_sign_id: VitalSign.find_by_name("Weight").id,
+        .build( vital_sign_id: VitalSign.find_by_name("PatientWeight").id,
                 value: pvs_params[:weight], 
                 measured_at: measured_at,
-                user_id: current_user.id) unless pvs_params[:weight].empty?
+                user_id: current_user.id,
+                type: "PatientWeight") unless pvs_params[:weight].empty?
       
       #Temp
       patient_vital_signs << @patient.patient_vital_signs
-        .build( vital_sign_id: VitalSign.find_by_name("Temp").id,
+        .build( vital_sign_id: VitalSign.find_by_name("PatientTemp").id,
                 value: pvs_params[:temp], 
                 measured_at: measured_at,
-                user_id: current_user.id) unless pvs_params[:temp].empty?
+                user_id: current_user.id,
+                type: "PatientTemp") unless pvs_params[:temp].empty?
       
       #validate as a group
       all_valid = true

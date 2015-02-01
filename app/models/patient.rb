@@ -1,10 +1,16 @@
 class Patient < ActiveRecord::Base
   validates :first_name, :last_name, :dob, presence: true
+  
   has_many :patient_vital_signs
-  has_many :vital_signs, through: :patient_vital_signs
+  has_many :vital_signs, through: :patient_vital_signs #Depricate this
   has_many :patient_caretakers
   has_many :users, through: :patient_caretakers
   has_many :patient_vital_sign_groups
+  has_many :patient_heart_rates
+  has_many :patient_blood_pressures
+  has_many :patient_temps
+  has_many :patient_weights
+  
   attr_encrypted :first_name, key: 'abcdefg' #:patient_encryption_key
   attr_encrypted :last_name, key: 'abcdefg'
   attr_encrypted :ssn, key: 'abcdefg'

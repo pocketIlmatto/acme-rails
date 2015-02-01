@@ -1,0 +1,3 @@
+class PatientWeightPolicy < PatientVitalSignPolicy
+
+end
