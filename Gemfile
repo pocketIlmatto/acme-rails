@@ -24,6 +24,7 @@ gem 'chartkick'
 gem 'pundit'
 gem 'font-awesome-sass', '~> 4.2.0'
 gem 'attr_encrypted'
+gem 'active_model_serializers'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc

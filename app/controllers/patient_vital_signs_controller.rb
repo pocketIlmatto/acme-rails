@@ -3,20 +3,6 @@ class PatientVitalSignsController < ApplicationController
   before_action :set_patient_vital_sign, only: [:update]
   respond_to :html, :json
 
-  def create
-    @patient = Patient.find(params[:patient_id])
-    @patient_vital_sign = @patient.patient_vital_signs.build(patient_vital_sign_params)
-    @patient_vital_sign.user_id = current_user.id
-    authorize @patient_vital_sign
-    
-    if @patient_vital_sign.save
-      redirect_to(@patient)
-    else
-      @patient.reload.patient_vital_signs
-      redirect_to(@patient)
-    end
-  end
-
   def edit
     authorize @patient_vital_sign
   end

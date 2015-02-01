@@ -1,0 +1,3 @@
+class PatientBloodPressure < PatientVitalSign
+
+end

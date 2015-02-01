@@ -1,0 +1,3 @@
+class PatientHeartRatePolicy < PatientVitalSignPolicy
+
+end

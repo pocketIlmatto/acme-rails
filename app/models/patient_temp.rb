@@ -1,0 +1,3 @@
+class PatientTemp < PatientVitalSign
+
+end

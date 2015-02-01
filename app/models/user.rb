@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   #has_many :organizations_as_admin, -> { where "role = 'Admin'" }, class_name: "UserOrganization", foreign_key: "user_id"
   attr_accessor :organization_id, :organization_token
 
+  #Concerns
+  include TokenAuthenticable
+
   def name
     [first_name, last_name].compact.join(' ')
   end

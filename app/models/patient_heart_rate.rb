@@ -1,0 +1,3 @@
+class PatientHeartRate < PatientVitalSign
+
+end

@@ -1,3 +1,4 @@
+#Depricate
 class VitalSign < ActiveRecord::Base
   validates :name, presence: :true, uniqueness: :true
   has_many :patient_vital_signs

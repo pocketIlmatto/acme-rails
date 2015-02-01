@@ -1,0 +1,3 @@
+class PatientWeight < PatientVitalSign
+
+end
